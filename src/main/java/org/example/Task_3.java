@@ -3,8 +3,7 @@ package org.example;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 class WordFrequencyCounter {
 
@@ -28,8 +27,16 @@ class WordFrequencyCounter {
 
     public static void main(String[] args) {
         String fileName = "src/main/java/org/example/words.txt";
-        Map<String, Integer> result = countWordFrequency(fileName);
-        for (Map.Entry<String, Integer> entry : result.entrySet()) {
+        Map<String, Integer> wordFrequency = countWordFrequency(fileName);
+
+        // Створення списку з елементів мапи
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(wordFrequency.entrySet());
+
+        // Сортування списку за значеннями (кількістю зустрічей слів) у зворотньому порядку
+        list.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        // Виведення відсортованих даних
+        for (Map.Entry<String, Integer> entry : list) {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
     }
